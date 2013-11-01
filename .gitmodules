@@ -1,0 +1,15 @@
+[submodule "vimconf/vimfiles/bundle/nerdtree"]
+	path = vimconf/vimfiles/bundle/nerdtree
+	url = https://github.com/scrooloose/nerdtree.git
+[submodule "vimconf/vimfiles/bundle/gitgutter"]
+	path = vimconf/vimfiles/bundle/gitgutter
+	url = https://github.com/airblade/vim-gitgutter.git
+[submodule "vimconf/vimfiles/bundle/nerdcommenter"]
+	path = vimconf/vimfiles/bundle/nerdcommenter
+	url = https://github.com/scrooloose/nerdcommenter.git
+[submodule "vimconf/vimfiles/bundle/indent-guides"]
+	path = vimconf/vimfiles/bundle/indent-guides
+	url = git://github.com/nathanaelkane/vim-indent-guides.git
+[submodule "vimconf/vimfiles/bundle/syntastic"]
+	path = vimconf/vimfiles/bundle/syntastic
+	url = https://github.com/scrooloose/syntastic.git

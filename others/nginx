@@ -1,0 +1,120 @@
+#!/bin/sh
+#
+#
+#processname: nginx
+#config: /usr/local/nginx/conf/nginx.conf
+#pidfile: /var/run/nginx.pid
+#       
+#create by He Shengfeng<shengfeng.he@qunar.com>
+#date: 20071217 
+#       
+        
+#check network status
+. /etc/sysconfig/network
+                
+if [ ${NETWORKING} == "no" ]
+then    
+        echo "[ FAILED ]. network is down. check it."
+        exit 1  
+fi      
+                
+#service name, configuration file, pid file, etc.
+BASENAME="nginx"
+CFGFILE="/usr/local/$BASENAME/conf/$BASENAME.conf"
+PROGNAME="/usr/local/$BASENAME/sbin/$BASENAME"
+        
+RETVAL=0
+        
+#call this when start
+start() 
+{               
+        #check first
+        if [ ! -e $PROGNAME ]
+        then
+                echo "[ FAILED ]. $PROGNAME does NOT exist. check it."
+                exit 1
+        fi
+        if [ ! -e $CFGFILE ]
+        then 
+                echo "[ FAILED ]. $CFGFILE does NOT exist. check it."
+                exit 1
+        fi
+        ulimit -HS -n 81920
+        $PROGNAME -t -c $CFGFILE
+        if [ $? -ne 0 ] 
+        then
+                echo "[ FAILED ]. Errors in Configuration File. Check $CFGFILE."
+                return 1
+        fi
+        echo "Starting $BASENAME ..."
+        $PROGNAME -c $CFGFILE
+        RET=$?
+        if [ $RET -eq 0 ]
+        then
+                echo "[ OK ]."
+        else
+                echo "[ FAILED ]"
+        fi
+        return $RET
+}
+
+#call this when stop
+stop()
+{
+        echo "Stopping $BASENAME ..."
+
+        PIDS=$(ps axu | grep $BASENAME | grep $CFGFILE | grep -v grep | awk '{print $2}')
+        #kill gracefull
+        for PID in $PIDS
+        do
+                kill -QUIT $PID
+        done
+        sleep 1
+        #kill -9
+        PIDS=$(ps axu | grep $BASENAME | grep $CFGFILE | grep -v grep | awk '{print $2}')
+        for PID in $PIDS
+        do
+                kill -9 $PID
+        done
+
+        echo "[ OK ]."
+        return 0
+}
+
+#get process status by this
+status()
+{
+        PIDS=$(ps axu | grep $BASENAME | grep $CFGFILE | grep -v grep | awk '{print $2}')
+        if [ "$PIDS" == "" ]
+        then
+                echo "$BASENAME is stopped."
+        else
+                echo "$BASENAME is running."
+        fi
+}
+
+
+usage()
+{
+        echo "Usage: $BASENAME start|stop|status"
+        RETVAL=1
+}
+
+case $1 in
+        start)
+                start
+                RETVAL=$?
+                ;;
+        stop)
+                stop
+                RETVAL=$?
+                ;;
+        status)
+                status
+                ;;
+        *)
+                usage
+                ;;
+esac
+
+exit $RETVAL                                

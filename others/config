@@ -1,7 +1,7 @@
 Host github.com
     IdentityFile ~/.ssh/id_rsa.github
     user feiyuliu
-Host gitlab.corp.qunar.com
+Host git.qunar.com
     IdentityFile ~/.ssh/id_rsa.qunar
     user feiyu.liu
 ServerAliveInterval 30

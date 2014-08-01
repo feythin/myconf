@@ -47,6 +47,6 @@ done
 unset i
 unset pathmunge
 export LC_ALL=en_US.UTF-8
-export JAVA_HOME=/home/q/java/default
-export CLASSPATH=.:/home/q/java/default/lib:/home/q/java/default/lib:
+export JAVA_HOME=/home/java/default
+export CLASSPATH=.:/home/java/default/lib:/home/java/default/lib:
 #export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin

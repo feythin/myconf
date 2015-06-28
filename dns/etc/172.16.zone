@@ -1,0 +1,14 @@
+$TTL 7200 	; 1 day
+@		IN SOA	ns1.liufeiyu.cn. root.liufeiyu.cn.(
+			20150627	; Serial
+			3600		; Refresh (1 hour)
+			900		; Retry (15 minutes)
+			3600000		; Expire (5 weeks 6 days 16 hours)
+			3600		; Minimum (1 hour)
+			)		;
+@	2D	IN	NS	ns1.liufeiyu.cn.
+@	2D	IN	NS	ns2.liufeiyu.cn.
+@	2D	IN	NS	ns3.liufeiyu.cn.
+@	2D	IN	NS	ns4.liufeiyu.cn.
+$ORIGIN 12.16.172.in-addr.arpa.
+1	PTR	test2.liufeiyu.cn.

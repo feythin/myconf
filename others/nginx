@@ -5,7 +5,6 @@
 #config: /usr/local/nginx/conf/nginx.conf
 #pidfile: /var/run/nginx.pid
 #       
-#create by He Shengfeng<shengfeng.he@qunar.com>
 #date: 20071217 
 #       
         

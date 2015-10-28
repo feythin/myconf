@@ -1,10 +1,17 @@
 #!/bin/sh
+yum install -y autoconf automake
 BIN=$(readlink -f -- $(dirname -- "$0"))
 cd $BIN/../LuaJIT-2.0.4
 make PREFIX=/home/ops/luajit
 make install PREFIX=/home/ops/luajit
-cd $BIN/../openssl-1.0.0i/
+cd $BIN/../openssl-1.0.0p/
 ./config
+cd $BIN/../pcre-8.37/
+autoreconf
+./configure --prefix=$BIN/../pcre-8.37 --enable-utf8
+automake
+make 
+make install
 cd $BIN
 export LUAJIT_LIB=/home/ops/luajit/lib
 export LUAJIT_INC=/home/ops/luajit/include/luajit-2.0
@@ -22,6 +29,7 @@ export LUAJIT_INC=/home/ops/luajit/include/luajit-2.0
          --add-module=../echo-nginx-module-0.58 \
          --add-module=../lua-nginx-module-0.9.16 \
          --add-module=../ngx-limit-req2 \
+         --add-module=../headers-more-nginx-module-0.261 \
          --with-openssl=../openssl-1.0.0p \
          --with-openssl-opt="enable-tlsext" \
          --user=www --group=www
